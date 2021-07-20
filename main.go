@@ -52,5 +52,6 @@ func connectToMongo() {
 func main() {
 	readConfig()
 	connectToMongo()
+	Schedule(10)
 	fmt.Println("Hello from GoLang!")
 }
