@@ -6,11 +6,13 @@ import (
 )
 
 func Schedule(repeatInterval time.Duration) {
-	fmt.Println("Schedule")
 	for {
 		// SendNotification("Test", "Test message from GoLang")
 		ConnectToMongo()
-		CollectBirthdays()
+		people := CollectBirthdays()
+		for _, val := range people {
+			fmt.Println(val)
+		}
 		<-time.After(repeatInterval * time.Second)
 	}
 }

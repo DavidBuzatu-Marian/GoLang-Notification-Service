@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
+
+var DAY time.Duration = 86400
 
 func main() {
 	ReadConfig()
-	Schedule(10)
+	Schedule(DAY)
 	fmt.Println("Hello from GoLang!")
 }
