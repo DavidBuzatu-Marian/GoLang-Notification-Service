@@ -55,7 +55,24 @@ func ConnectToMongo() {
 func CollectBirthdays() []bson.D {
 	var people []bson.D
 	collection := client.Database("myFirstDatabase").Collection("people")
-	query, err := collection.Find(ctx, bson.M{"birthday": bson.M{"$gte": time.Now()}})
+	query, err := collection.Aggregate(ctx, bson.A{
+		bson.M{
+			"$redact": bson.M{
+				"$cond": bson.A{
+					bson.M{
+						"$and": bson.A{
+							bson.M{
+								"$eq": bson.A{
+									bson.M{"$month": "$birthday"},
+									time.Now().Month()},
+							},
+							bson.M{
+								"$eq": bson.A{
+									bson.M{"$dayOfMonth": "$birthday"},
+									time.Now().Day()},
+							}}},
+					"$$KEEP",
+					"$$PRUNE"}}}})
 	if err != nil {
 		log.Fatal(err)
 	}

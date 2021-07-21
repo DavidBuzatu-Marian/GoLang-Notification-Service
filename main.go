@@ -9,6 +9,6 @@ var DAY time.Duration = 86400
 
 func main() {
 	ReadConfig()
-	Schedule(DAY)
+	Schedule(5)
 	fmt.Println("Hello from GoLang!")
 }
