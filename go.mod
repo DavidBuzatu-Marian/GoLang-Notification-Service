@@ -1,12 +1,15 @@
-module davidbuzatu.com/datafy/notification_service
+module github.com/DavidBuzatu-Marian/GoLang-Notification-Service
 
 go 1.16
 
 require (
+	github.com/DavidBuzatu-Marian/GoLang-Mongo-Service v0.0.0-20210722075227-75adb4c93353 // indirect
 	github.com/gen2brain/beeep v0.0.0-20210529141713-5586760f0cc1
-	github.com/google/go-cmp v0.5.5 // indirect
-	go.mongodb.org/mongo-driver v1.6.0
-	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
-	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	github.com/golang/snappy v0.0.4 // indirect
+	github.com/klauspost/compress v1.13.1 // indirect
+	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
+	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+	golang.org/x/text v0.3.6 // indirect
 )
