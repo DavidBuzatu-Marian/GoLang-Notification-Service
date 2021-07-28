@@ -1,6 +1,4 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/DavidBuzatu-Marian/go_mongo v0.0.0-20210727210829-05f2dee84526 h1:Oa0ahhowqQPoeJ4axigDtZDF76Wlz/mYT6uwpb6h3HU=
-github.com/DavidBuzatu-Marian/go_mongo v0.0.0-20210727210829-05f2dee84526/go.mod h1:lHaJfeaHWS36ZTGmTWRvpuZAEVqX1ED8DmIo/iD7c5U=
 github.com/DavidBuzatu-Marian/go_mongo v0.0.0-20210728191952-3e247305c28d h1:P5qUdC26cLZno+lmIt2kJKgUGn03BnVULPtAP0+NnPI=
 github.com/DavidBuzatu-Marian/go_mongo v0.0.0-20210728191952-3e247305c28d/go.mod h1:lHaJfeaHWS36ZTGmTWRvpuZAEVqX1ED8DmIo/iD7c5U=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
