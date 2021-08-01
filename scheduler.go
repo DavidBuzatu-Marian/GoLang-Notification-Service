@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"strings"
 	"time"
-
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 var httpClient = &http.Client{Timeout: 10 * time.Second}
@@ -25,18 +23,17 @@ type Person []struct {
 func Schedule(repeatInterval time.Duration) {
 	for {
 		people := new(Person)
-		err := getDataFromURL("http://localhost:8080/api/person/info/birthdays", people)
+		err := getPersonsWithTodayBirthday("http://localhost:8080/api/person/info/birthdays", people)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(people)
-		// message := createNotificationMessageUsingPeopleInfo(people)
-		// SendNotification("Birthdays today", message)
+		message := createNotificationMessageUsingPeopleInfo(people)
+		SendNotification("Birthdays today", message)
 		<-time.After(repeatInterval * time.Second)
 	}
 }
 
-func getDataFromURL(url string, target interface{}) error {
+func getPersonsWithTodayBirthday(url string, target interface{}) error {
 	response, err := httpClient.Get(url)
 	if err != nil {
 		log.Fatal(err)
@@ -46,11 +43,10 @@ func getDataFromURL(url string, target interface{}) error {
 	return json.NewDecoder(response.Body).Decode(&target)
 }
 
-func createNotificationMessageUsingPeopleInfo(people []bson.D) string {
+func createNotificationMessageUsingPeopleInfo(people *Person) string {
 	var message strings.Builder
-	for _, person := range people {
-		personMap := person.Map()
-		fmt.Fprintf(&message, "Name: %s; Email: %s; PhoneNumber: %s", personMap["name"], personMap["email"], personMap["phoneNumber"])
+	for _, person := range *people {
+		fmt.Fprintf(&message, "Name: %s; Email: %s; PhoneNumber: %s", person.Name, person.Email, person.PhoneNumber)
 	}
 	return message.String()
 }
