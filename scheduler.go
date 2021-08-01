@@ -1,25 +1,49 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
 	"strings"
 	"time"
 
-	"github.com/DavidBuzatu-Marian/go_mongo"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+var httpClient = &http.Client{Timeout: 10 * time.Second}
+
+type Person []struct {
+	ID          string    `json:"_id"`
+	Name        string    `json:"name"`
+	Email       string    `json:"email"`
+	PhoneNumber string    `json:"phoneNumber"`
+	Country     string    `json:"country"`
+	Birthday    time.Time `json:"birthday"`
+}
+
 func Schedule(repeatInterval time.Duration) {
 	for {
-		client := go_mongo.ConnectToMongo(config.MongoURI)
-		people := go_mongo.CollectBirthdays(client)
-		for _, val := range people {
-			fmt.Println(val)
+		people := new(Person)
+		err := getDataFromURL("http://localhost:8080/api/person/info/birthdays", people)
+		if err != nil {
+			log.Fatal(err)
 		}
-		message := createNotificationMessageUsingPeopleInfo(people)
-		SendNotification("Birthdays today", message)
+		fmt.Println(people)
+		// message := createNotificationMessageUsingPeopleInfo(people)
+		// SendNotification("Birthdays today", message)
 		<-time.After(repeatInterval * time.Second)
 	}
+}
+
+func getDataFromURL(url string, target interface{}) error {
+	response, err := httpClient.Get(url)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer response.Body.Close()
+
+	return json.NewDecoder(response.Body).Decode(&target)
 }
 
 func createNotificationMessageUsingPeopleInfo(people []bson.D) string {
